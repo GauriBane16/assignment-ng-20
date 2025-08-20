@@ -35,8 +35,6 @@ export class Home {
     if (ng?.cancelClick) ng.cancelClick();
   }
 
-  console.log("Navigate to details for:", user);
-
   this.goToDetails(user);
 }
 

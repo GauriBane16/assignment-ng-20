@@ -20,7 +20,6 @@ user: any;
     this.user = data.find(u => 
       Object.values(u).some(val => String(val) === id)
     );
-    console.log("this.user details", this.user);
   });
 }
 }
