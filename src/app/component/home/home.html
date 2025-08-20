@@ -1,0 +1,31 @@
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">User List</h1>
+    <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th *ngFor="let header of headers" class="px-4 py-2 border">{{ header }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users"
+    class="hover:bg-gray-100 cursor-pointer"
+    (dblclick)="onRowClick(user, $event)">
+                    <td *ngFor="let header of headers" class="px-4 py-2 border" appEditableCell [user]="user"
+                        [field]="header" [saveFn]="save" #cell="appEditableCell">
+
+                        <ng-container *ngIf="!cell.editing(); else editTpl">
+                            {{ user[header] }}
+                        </ng-container>
+
+                        <ng-template #editTpl>
+                            <input type="text" class="border px-2 py-1 w-full" [(ngModel)]="user[header]"
+                                (blur)="cell.onInputBlur()" (keydown.enter)="cell.onEnter($event)"
+                                (keydown.escape)="cell.onEscape($event)" data-edit />
+                        </ng-template>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

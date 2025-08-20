@@ -1,0 +1,44 @@
+<div class="p-4">
+    <h1 class="text-2xl font-bold mb-4">User List</h1>
+
+    <div class="overflow-x-auto">
+        <table class="min-w-full border border-gray-300">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th *ngFor="let header of headers" class="px-4 py-2 border">{{ header }}</th>
+                    <th class="px-4 py-2 border">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let user of users" class="hover:bg-gray-100 cursor-pointer"
+                    (click)="!user.isEditing && goToDetails(user)">
+
+                    <td *ngFor="let header of headers" class="px-4 py-2 border">
+                        <span *ngIf="!isEditing(user); else editField">{{ user[header] }}</span>
+                        <ng-template #editField>
+                            <ng-container *ngIf="(user[header]?.length || 0) < 50; else textareaField">
+                                <input [(ngModel)]="user[header]" type="text" style="width: 100%;" />
+                            </ng-container>
+
+                            <ng-template #textareaField>
+                                <textarea [(ngModel)]="user[header]" rows="3" style="width: 100%;"></textarea>
+                            </ng-template>
+                        </ng-template>
+                    </td>
+
+
+                    <td class="px-4 py-2 border text-center">
+                        <button *ngIf="!isEditing(user)" class="bg-yellow-500 text-white px-3 py-1 rounded"
+                            (click)="enableEdit(user, $event)">
+                            Edit
+                        </button>
+                        <button *ngIf="isEditing(user)" class="bg-green-500 text-white px-3 py-1 rounded"
+                            (click)="saveRow(user, $event)">
+                            Save
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
