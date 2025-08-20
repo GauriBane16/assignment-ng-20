@@ -23,11 +23,10 @@ export class EditableCell {
   handleClick(event: MouseEvent) {
     clearTimeout(this.clickTimer);
 
-    // Only schedule edit on *single* click
     if (event.detail === 1) {
       this.clickTimer = setTimeout(() => {
         this.startEdit(event);
-      }, 200); // if dblclick fires, row cancels this
+      }, 200);
     }
   }
 
@@ -41,12 +40,10 @@ export class EditableCell {
     this.editing.set(true);
     this.editingChange.emit(true);
 
-    // focus input AFTER Angular has rendered it
     setTimeout(() => {
       if (this.editing()) {
         const input = this.el.nativeElement.querySelector('input[data-edit]') as HTMLInputElement | null;
         input?.focus();
-        // input?.select(); // enable only if you want auto-select
       }
     });
   }
@@ -60,7 +57,7 @@ export class EditableCell {
 
   onEscape(event: Event) {
     event.preventDefault();
-    this.user[this.field] = this.originalValue; // revert
+    this.user[this.field] = this.originalValue;
     this.editing.set(false);
     this.editingChange.emit(false);
   }

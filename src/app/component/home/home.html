@@ -8,9 +8,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let user of users"
-    class="hover:bg-gray-100 cursor-pointer"
-    (dblclick)="onRowClick(user, $event)">
+                <tr *ngFor="let user of users" class="hover:bg-gray-100 cursor-pointer"
+                    (dblclick)="onRowClick(user, $event)">
                     <td *ngFor="let header of headers" class="px-4 py-2 border" appEditableCell [user]="user"
                         [field]="header" [saveFn]="save" #cell="appEditableCell">
 

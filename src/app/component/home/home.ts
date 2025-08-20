@@ -28,7 +28,6 @@ export class Home {
 
   onRowClick(user: any, event: MouseEvent) {
    event.stopPropagation();
-  // cancel any pending single-click edit
   const cell = (event.target as HTMLElement).closest('[appEditableCell]');
   if (cell) {
     const ng = (cell as any).__ngContext__?.[8];
